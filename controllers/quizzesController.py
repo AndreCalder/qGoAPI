@@ -8,6 +8,7 @@ def createQuiz(file, args):
     return ""
 
 def getQuizzes(args):
+    # Este cambio va a ai
     filteredQuizzes = list(quizzes.find(args))
     return json.loads(json_util.dumps(filteredQuizzes))
 
