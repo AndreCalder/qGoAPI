@@ -3,14 +3,13 @@ from bson import json_util
 import json
 
 quizzes = db["quizzes"]
-print(quizzes)
 
 def createQuiz(file, args):
     return ""
 
 def getQuizzes(args):
     filteredQuizzes = list(quizzes.find(args))
-    return filteredQuizzes
+    return json.loads(json_util.dumps(filteredQuizzes))
 
 def updateQuiz(args):
     return ""
