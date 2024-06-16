@@ -1,7 +1,10 @@
 from flask import Flask
 from routes.router import router
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 #Calling the router blueprint
 app.register_blueprint(router)
