@@ -14,9 +14,10 @@ def get_quiz(prompt:str, system_instrtuction, GLOBAL_APP_CONFIG):
 
     #chat = model.start_chat(response_validation=False)
     #response = chat.send_message(prompt)
-
+    print("Processing document...")
     response = model.generate_content(prompt)
-
+    print("Response: ")
+    print(response)
     response_txt = response.text
 
     return response_txt

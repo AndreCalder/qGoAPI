@@ -24,7 +24,6 @@ HERE IS AN EXAMPLE OF HOW THE JSON OBJECT SHOULD LOOK LIKE:
 SINGLE_FILE_BASIC_JSON_STRUCTURE_OPEN_Q = """
 {
 "quiz":
-
     [
 
         {
@@ -101,6 +100,11 @@ SINGLE_FILE_BASIC_JSON_STRUCTURE_MULTI_CHOICE = """
         "answers":[
         
                 {
+                "answer_id":0,
+                "answer":str,
+                "is_correct":bool
+                },
+                {
                 "answer_id":1,
                 "answer":str,
                 "is_correct":bool
@@ -149,6 +153,181 @@ SINGLE_FILE_BASIC_JSON_STRUCTURE_MULTI_CHOICE = """
 
         {
         "question_id":3,
+        "question":str,
+        "answers":[
+        
+                {
+                "answer_id":1,
+                "answer":str,
+                "is_correct":bool
+                },
+
+                {
+                "answer_id":2,
+                "answer":str,
+                "is_correct":bool
+                },
+
+                {
+                "answer_id":3,
+                "answer":str,
+                "is_correct":bool
+                }
+
+                ]
+        },
+        {
+        "question_id":4,
+        "question":str,
+        "answers":[
+        
+                {
+                "answer_id":1,
+                "answer":str,
+                "is_correct":bool
+                },
+
+                {
+                "answer_id":2,
+                "answer":str,
+                "is_correct":bool
+                },
+
+                {
+                "answer_id":3,
+                "answer":str,
+                "is_correct":bool
+                }
+
+                ]
+        },
+        {
+        "question_id":5,
+        "question":str,
+        "answers":[
+        
+                {
+                "answer_id":1,
+                "answer":str,
+                "is_correct":bool
+                },
+
+                {
+                "answer_id":2,
+                "answer":str,
+                "is_correct":bool
+                },
+
+                {
+                "answer_id":3,
+                "answer":str,
+                "is_correct":bool
+                }
+
+                ]
+        },
+        {
+        "question_id":6,
+        "question":str,
+        "answers":[
+        
+                {
+                "answer_id":1,
+                "answer":str,
+                "is_correct":bool
+                },
+
+                {
+                "answer_id":2,
+                "answer":str,
+                "is_correct":bool
+                },
+
+                {
+                "answer_id":3,
+                "answer":str,
+                "is_correct":bool
+                }
+
+                ]
+        },
+        {
+        "question_id":7,
+        "question":str,
+        "answers":[
+        
+                {
+                "answer_id":1,
+                "answer":str,
+                "is_correct":bool
+                },
+
+                {
+                "answer_id":2,
+                "answer":str,
+                "is_correct":bool
+                },
+
+                {
+                "answer_id":3,
+                "answer":str,
+                "is_correct":bool
+                }
+
+                ]
+        },
+        {
+        "question_id":8,
+        "question":str,
+        "answers":[
+        
+                {
+                "answer_id":1,
+                "answer":str,
+                "is_correct":bool
+                },
+
+                {
+                "answer_id":2,
+                "answer":str,
+                "is_correct":bool
+                },
+
+                {
+                "answer_id":3,
+                "answer":str,
+                "is_correct":bool
+                }
+
+                ]
+        },
+        {
+        "question_id":9,
+        "question":str,
+        "answers":[
+        
+                {
+                "answer_id":1,
+                "answer":str,
+                "is_correct":bool
+                },
+
+                {
+                "answer_id":2,
+                "answer":str,
+                "is_correct":bool
+                },
+
+                {
+                "answer_id":3,
+                "answer":str,
+                "is_correct":bool
+                }
+
+                ]
+        },
+        {
+        "question_id":10,
         "question":str,
         "answers":[
         
@@ -188,7 +367,12 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
         "question_id":1,
         "question":"What is 1 + 1?",
         "answers":[
-        
+                {
+                "answer_id":0,
+                "answer":"4",
+                "is_correct":false
+                },
+
                 {
                 "answer_id":1,
                 "answer":"1",
@@ -214,7 +398,12 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
         "question_id":2,
         "question":"Wath is 2 + 2?",
         "answers":[
-        
+                {
+                "answer_id":0,
+                "answer":"4",
+                "is_correct":false
+                },
+
                 {
                 "answer_id":1,
                 "answer":"4",
@@ -240,7 +429,229 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
         "question_id":3,
         "question":"What is 3 + 3?",
         "answers":[
-        
+                {
+                "answer_id":0,
+                "answer":"4",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":1,
+                "answer":"3",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":2,
+                "answer":"7",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":3,
+                "answer":"6",
+                "is_correct":true
+                }
+
+                ]
+        },
+
+                {
+        "question_id":4,
+        "question":"What is 3 + 3?",
+        "answers":[
+                {
+                "answer_id":0,
+                "answer":"4",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":1,
+                "answer":"3",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":2,
+                "answer":"7",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":3,
+                "answer":"6",
+                "is_correct":true
+                }
+
+                ]
+        },
+
+                {
+        "question_id":5,
+        "question":"What is 3 + 3?",
+        "answers":[
+                {
+                "answer_id":0,
+                "answer":"4",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":1,
+                "answer":"3",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":2,
+                "answer":"7",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":3,
+                "answer":"6",
+                "is_correct":true
+                }
+
+                ]
+        },
+
+                {
+        "question_id":6,
+        "question":"What is 3 + 3?",
+        "answers":[
+                {
+                "answer_id":0,
+                "answer":"4",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":1,
+                "answer":"3",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":2,
+                "answer":"7",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":3,
+                "answer":"6",
+                "is_correct":true
+                }
+
+                ]
+        },
+
+                {
+        "question_id":7,
+        "question":"What is 3 + 3?",
+        "answers":[
+                {
+                "answer_id":0,
+                "answer":"4",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":1,
+                "answer":"3",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":2,
+                "answer":"7",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":3,
+                "answer":"6",
+                "is_correct":true
+                }
+
+                ]
+        },
+
+                {
+        "question_id":8,
+        "question":"What is 3 + 3?",
+        "answers":[
+                {
+                "answer_id":0,
+                "answer":"4",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":1,
+                "answer":"3",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":2,
+                "answer":"7",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":3,
+                "answer":"6",
+                "is_correct":true
+                }
+
+                ]
+        },
+
+                {
+        "question_id":9,
+        "question":"What is 3 + 3?",
+        "answers":[
+                {
+                "answer_id":0,
+                "answer":"4",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":1,
+                "answer":"3",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":2,
+                "answer":"7",
+                "is_correct":false
+                },
+
+                {
+                "answer_id":3,
+                "answer":"6",
+                "is_correct":true
+                }
+
+                ]
+        },
+
+                {
+        "question_id":10,
+        "question":"What is 3 + 3?",
+        "answers":[
+                {
+                "answer_id":0,
+                "answer":"4",
+                "is_correct":false
+                },
+
                 {
                 "answer_id":1,
                 "answer":"3",
@@ -268,6 +679,7 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
 
 SINGLE_FILE_BASIC_SYSTEM_INSTRUCTION = ["""You are a scholar assistant responsible to create quizzes from the given contents.""",
                                         """For each question, you will need to add the correct answer.""",
+                                        """For each question, there should only be one correct answer.""",
                                         #"""For each answer to a OPEN ENDED question, you will need to add a justification.""",
                                         """You must return a valid JSON Object with the output structure requested on the prompt.""",
                                         """Use the Output Example as template to create valid JSON Objects."""]
@@ -280,7 +692,7 @@ GLOBAL_APP_CONFIG = {"PROJECT_ID":"qgo-playground",
                      "LOCATION":"us-central1",
                      "LLM":{"MODEL":"gemini-1.0-pro",
                             "TEMPERATURE":0.5,
-                            "MAX_TOKENS":2048}}
+                            "MAX_TOKENS":21200}}
 
 CONFIG = {"SINGLE_FILE_BASIC":{
                                 "PROMPT":SINGLE_FILE_BASIC_PROMPT,
@@ -290,5 +702,5 @@ CONFIG = {"SINGLE_FILE_BASIC":{
                                 "JSON_STRUCTURE_MULTI_CHOICE":SINGLE_FILE_BASIC_JSON_STRUCTURE_MULTI_CHOICE,
                                 "JSON_EXAMPLE_MULTI_CHOICE":SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE,
 },
-"MAX_RETRY_COUNT":2
+"MAX_RETRY_COUNT":3
 }

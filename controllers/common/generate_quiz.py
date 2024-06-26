@@ -9,11 +9,14 @@ from tempfile import NamedTemporaryFile
 
 def single_file_basic(request):
     # ---------------------------
-    n_questions=request.form.get('n_questions')
-    q_type=request.form.get('q_type')
-    difficulty=request.form.get('difficulty')
+    title           =   request.form.get('title')
+    n_questions     =   request.form.get('n_questions')
+    q_type          =   request.form.get('q_type')
+    difficulty      =   request.form.get('difficulty')
+    start_page      =   request.form.get('start')
+    end_page        =   request.form.get('end')
     # uploaded_file = request.files['file'] --------------------- REMOVE COMMENT FOR API TEST
-    uploaded_file = request.files['file'] # --------------------- COMMENT FOR API TEST
+    uploaded_file   =   request.files['file'] # --------------------- COMMENT FOR API TEST
     # ---------------------------
 
     config = CONFIG['SINGLE_FILE_BASIC']
@@ -45,8 +48,15 @@ def single_file_basic(request):
     content = ''
 
     for d in doc:
-        content+=d.page_content
-    
+        page = int(d.metadata.get('page'))
+        if request.form.get('content') != 'document':
+            if page >= int(start_page) and page <= int(end_page):
+                content+=d.page_content
+            elif page > int(end_page):
+                break
+        else:
+            content+=d.page_content
+    print(content)
     prompt = prompt.format(n_questions=n_questions,
                            q_type=q_type,
                            difficulty=difficulty,
@@ -56,17 +66,18 @@ def single_file_basic(request):
     
     valid_json = False
     retry_count = 0
-
     while not valid_json and retry_count <= CONFIG['MAX_RETRY_COUNT']:
     
         llm_response = get_quiz(prompt, system_instrtuction, GLOBAL_APP_CONFIG)
         quiz_json = extract_json(response=llm_response)
 
         if isinstance(quiz_json, dict):
-            valid_json = True
-            status = 'SUCCESS',
-            description = 'QUIZ SUCCESSFULLY CREATED.'
+            quiz_json['title']  =   title
+            valid_json          =   True
+            status              =   'SUCCESS',
+            description         =   'QUIZ SUCCESSFULLY CREATED.'
         else: 
+            print("Retrying...")
             retry_count += 1
             if retry_count > CONFIG['MAX_RETRY_COUNT']:
                 status = 'ERROR'

@@ -23,8 +23,7 @@ def load_doc(file_ext:str, uploaded_file) -> Document:
             doc = UnstructuredExcelLoader(uploaded_file, encoding='utf-8').load()
         case _: 
             doc = None
-       
-   print(doc)
+
    return doc
 
 
