@@ -25,3 +25,8 @@ def extract_json(response:str) -> dict:
     return json.loads(rf'{_string}')
   except Exception as e:
     return f'ERROR WHEN TRYING TO EXTRACT JSON QUIZ FROM LLM RESPONSE. // {e} // \n\n_string:\n\n{_string}'
+  
+def correct_question_count(n_questions, quiz_json):
+  return len(quiz_json['quiz']) == n_questions
+
+

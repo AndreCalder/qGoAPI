@@ -72,14 +72,28 @@ def single_file_basic(request):
     retry_count = 0
     while not valid_json and retry_count <= CONFIG['MAX_RETRY_COUNT']:
     
-        llm_response = get_quiz(prompt, system_instrtuction, GLOBAL_APP_CONFIG)
+        llm_response, chat = get_quiz(prompt, system_instrtuction, GLOBAL_APP_CONFIG)
         quiz_json = extract_json(response=llm_response)
 
         if isinstance(quiz_json, dict):
-            quiz_json['title']  =   title
-            valid_json          =   True
-            status              =   'SUCCESS',
-            description         =   'QUIZ SUCCESSFULLY CREATED.'
+            _correct_question_count = False
+            while not _correct_question_count:
+                if not correct_question_count(n_questions=int(n_questions), quiz_json=quiz_json):
+                    match int(n_questions) > len(quiz_json['quiz']):
+                        case True: 
+                            _llm_response = ask_for_missing_questions(chat=chat)
+                            _quiz_json = extract_json(response=_llm_response)
+                            if isinstance(_quiz_json, dict):
+                                quiz_json['quiz'].extend(_quiz_json['quiz'])
+                                llm_response += f'ASK_FOR_MISSING_QUESTIONS: {_llm_response}'
+                        case False:
+                            quiz_json['quiz'] = quiz_json['quiz'][:int(n_questions) + 1]
+                else:
+                    quiz_json['title']     =   title
+                    valid_json             =   True
+                    status                 =   'SUCCESS',
+                    description            =   'QUIZ SUCCESSFULLY CREATED.'
+                    _correct_question_count =   True
         else: 
             retry_count += 1
             if retry_count > CONFIG['MAX_RETRY_COUNT']:
