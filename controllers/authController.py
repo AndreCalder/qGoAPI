@@ -28,7 +28,9 @@ class AuthController:
         data = {
             "user_id": user.get("_id").get('$oid'),
             "username": user.get("username"),
+            "role": user.get("role")
         }
+        
         access_token = self.token.create_access_token(data)
         refresh_token = self.token.create_refresh_token(data)
         return {

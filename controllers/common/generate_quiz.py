@@ -5,8 +5,6 @@ from controllers.common.quiz_generation import *
 
 from tempfile import NamedTemporaryFile
 
-
-
 def single_file_basic(request):
     # ---------------------------
     title           =   request.form.get('title')
@@ -37,26 +35,32 @@ def single_file_basic(request):
         case 'any':
             q_type = 'OPEN ENDED AND MULTIPLE CHOICE'
 
+    
     if uploaded_file and uploaded_file.filename != '':     
         file_ext = get_file_ext(uploaded_file.filename) # --------------------- REMOVE COMMENT FOR API TEST
+        
         #file_ext = get_file_ext(rf'{uploaded_file}') # --------------------- COMMENT FOR API TEST
         with NamedTemporaryFile() as temp_file:
             uploaded_file.save(temp_file)
             temp_file.seek(0)
             doc = load_doc(file_ext, temp_file.name)
-
+    
     content = ''
-
-    for d in doc:
-        page = int(d.metadata.get('page'))
-        if request.form.get('content') != 'document':
-            if page >= int(start_page) and page <= int(end_page):
-                content+=d.page_content
-            elif page > int(end_page):
-                break
-        else:
+    
+    if file_ext == 'pptx':
+        for d in doc:
             content+=d.page_content
-    print(content)
+    else:
+        for d in doc:
+            page = int(d.metadata.get('page'))
+            if request.form.get('content') != 'document':
+                if page >= int(start_page) and page <= int(end_page):
+                    content+=d.page_content
+                elif page > int(end_page):
+                    break
+            else:
+                content+=d.page_content
+            
     prompt = prompt.format(n_questions=n_questions,
                            q_type=q_type,
                            difficulty=difficulty,
@@ -77,11 +81,10 @@ def single_file_basic(request):
             status              =   'SUCCESS',
             description         =   'QUIZ SUCCESSFULLY CREATED.'
         else: 
-            print("Retrying...")
             retry_count += 1
             if retry_count > CONFIG['MAX_RETRY_COUNT']:
                 status = 'ERROR'
-                description = f'MAX RETRY COUNT ({CONFIG['MAX_RETRY_COUNT']}) EXCIDEED.'
+                description = f"MAX RETRY COUNT ({CONFIG['MAX_RETRY_COUNT']}) EXCEDEED."
                 break
 
     return {'status':status,

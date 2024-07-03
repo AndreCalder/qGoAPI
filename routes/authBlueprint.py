@@ -23,19 +23,13 @@ def get():
 @auth_Router.route('/validatetoken', methods=['POST'])
 def validateToken():
     token_data = tokenController.check_token(request.headers['Authorization'])
-    if(datetime.datetime.fromtimestamp(token_data.get('exp')) > datetime.datetime.now()):
-        data = {
-            "user_id": token_data.get('user_id'),
-            "username": token_data.get('username'),
-        }
-        access_token = tokenController.create_access_token(data)
-        refresh_token = tokenController.create_refresh_token(data)
-        
+    if token_data.get('isValid'):
         return {
                 "message": "Success",
-                "access_token": access_token,
-                "refresh_token": refresh_token,
-                "user": token_data.get('username')
+                "access_token": token_data.get('access_token'),
+                "refresh_token": token_data.get('refresh_token'),
+                "username": token_data.get('username'),
+                "role": token_data.get('role')
             }, 200
     return {
         "message": "Session Terminated"

@@ -1,6 +1,6 @@
-import datetime
-
-from flask import jsonify
+from datetime import datetime, timedelta, timezone
+from docx import Document
+from flask import jsonify, g
 from mongoConnection import db
 from bson import ObjectId, json_util
 import json
@@ -9,12 +9,15 @@ from tempfile import NamedTemporaryFile
 # GLOBAL AI QUIZ GENERATION FUNCTIONS
 from controllers.common.generate_quiz import single_file_basic
 
+import tempfile
+
 quizzes = db["quizzes"]
 questions = db["questions"]
 answers = db["answers"]
 
 # Takes pdf, doc, docx, ppt, pptx
 def createQuiz(request):
+    
     match request.form.get('function'):
        case 'single_file_basic' : return single_file_basic(request)
         
@@ -37,7 +40,8 @@ def saveQuiz(request):
     quizData = {
         "title": title,
         "questions": savedQuestions,
-        "createDate": datetime.datetime.now(tz=datetime.timezone.utc),
+        "createDate": datetime.now(),
+        "createdBy": ObjectId(g.userId)
     }
     savedQuiz = quizzes.insert_one(quizData).inserted_id
     

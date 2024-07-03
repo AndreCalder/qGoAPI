@@ -20,7 +20,6 @@ class UserController:
         salt = bcrypt.gensalt(10)
         hashedpass = bcrypt.hashpw(password.encode('utf-8'), salt)
         createduser = users.insert_one({"username": username, "password": hashedpass.decode('utf-8')})
-        return "a"
         return {"userId": str(createduser.inserted_id)}, 200
     
         
