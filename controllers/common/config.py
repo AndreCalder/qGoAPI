@@ -5,6 +5,7 @@ SINGLE_FILE_BASIC_PROMPT = """
 CREATE {n_questions} {q_type} TYPE QUESTIONS, ALL OF {difficulty} DIFFICULTY AND ONLY USING THE GIVEN CONTENT:
 </REQUEST>
 
+IMPORTANT: ONLY USE THE PROVIDED CONTENT.
 <CONTENT>
 {content}
 </CONTENT>
@@ -19,6 +20,13 @@ HERE IS AN EXAMPLE OF HOW THE JSON OBJECT SHOULD LOOK LIKE:
 <OUTPUT EXAMPLE>
 {json_example}
 </OUTPUT EXAMPLE>
+
+IMPORTANT: ALWAYS KEEP THE ANSWERS ("answer") SHORT AND CONCISE.
+IMPORTANT: ALWAYS CREATE TOTALLY DIFFERENT QUESTIONS ("question").
+IMPORTANT: ALWAYS ONLY RETURN ONE CORRECT ANSWER ("is_correct":true) PER QUESTION, THE OTHER ONES SHOULD BE INCORRECT ("is_correct":false).
+IMPORTANT: ALL POSSIBLE ANSWERS PER QUESTION SHOULD BE TOTALLY DIFFERENT, SYNTHESIZE THEM.
+IMPORTANT: ALWAYS USE ONLY THE KEYS GIVEN IN THE <OUTPUT STRUCTURE>.
+IMPORTANT: ALWAYS USE "q_type":"multi_choice" IF THE QUESTION TYPE IS "MULTIPLE CHOICE" AND "q_type":"open_q" IF THE QUESTION TYPE IS "OPEN ENDEND".
 """
 
 SINGLE_FILE_BASIC_JSON_STRUCTURE_OPEN_Q = """
@@ -30,21 +38,24 @@ SINGLE_FILE_BASIC_JSON_STRUCTURE_OPEN_Q = """
         "question_id":1,
         "question":str,
         "answer":str,
-        "justification":str
+        "justification":str,
+        "q_type":str
         },
 
         {
         "question_id":2,
         "question":str,
         "answer":str,
-        "justification":str
+        "justification":str,
+        "q_type":str
         },
 
         {
         "question_id":3,
         "question":str,
         "answer":str,
-        "justification":str
+        "justification":str,
+        "q_type":str
         }
 
     ]
@@ -62,7 +73,9 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_OPEN_Q = """
         "question":"What is the difference between Artificial Intelligence (AI) and Machine Learning (ML)?",
         "answer":"AI aims to create intelligent machines, while ML enables machines to learn from data without explicit programming.",
         "justification":"AI: The broader field of computer science concerned with creating intelligent machines that can perform tasks typically requiring human intelligence.
-ML: A subset of AI that focuses on enabling machines to learn from data without explicit programming."
+ML: A subset of AI that focuses on enabling machines to learn from data without explicit programming.",
+        "q_type":"open_q"
+
         },
 
         {
@@ -72,7 +85,8 @@ ML: A subset of AI that focuses on enabling machines to learn from data without 
         "justification":"Early Disease Detection: AI can analyze medical images and data to identify abnormalities and predict disease risk, enabling earlier intervention and improved outcomes.
 Improved Diagnosis Accuracy: AI can assist doctors in making more accurate diagnoses by analyzing complex medical data and providing insights that may not be apparent to humans.
 Personalized Treatment Plans: AI can analyze patient data to develop personalized treatment plans that are tailored to individual needs and preferences.
-Automated Administrative Tasks: AI can automate administrative tasks such as scheduling appointments, managing patient records, and processing insurance claims, freeing up healthcare professionals to focus on patient care."
+Automated Administrative Tasks: AI can automate administrative tasks such as scheduling appointments, managing patient records, and processing insurance claims, freeing up healthcare professionals to focus on patient care.",
+        "q_type":"open_q"
         },
 
         {
@@ -81,7 +95,8 @@ Automated Administrative Tasks: AI can automate administrative tasks such as sch
         "answer":"AI development raises concerns about potential bias, lack of transparency, and job displacement. Responsible development is crucial.",
         "justification":"Potential Bias: AI algorithms can be biased based on the data they are trained on, leading to unfair or discriminatory outcomes.
 Lack of Transparency: The decision-making processes of some AI systems can be opaque, making it difficult to understand how they arrive at their conclusions.
-Job Displacement: As AI automates tasks, it may lead to job displacement in certain sectors, raising concerns about economic and social implications."
+Job Displacement: As AI automates tasks, it may lead to job displacement in certain sectors, raising concerns about economic and social implications.",
+        "q_type":"open_q"
         }
 
     ]
@@ -122,7 +137,8 @@ SINGLE_FILE_BASIC_JSON_STRUCTURE_MULTI_CHOICE = """
                 "is_correct":bool
                 }
 
-                ]
+                ],
+        "q_type":str
         },
 
         {
@@ -148,7 +164,8 @@ SINGLE_FILE_BASIC_JSON_STRUCTURE_MULTI_CHOICE = """
                 "is_correct":bool
                 }
 
-                ]
+                ],
+        "q_type":str
         },
 
         {
@@ -174,7 +191,8 @@ SINGLE_FILE_BASIC_JSON_STRUCTURE_MULTI_CHOICE = """
                 "is_correct":bool
                 }
 
-                ]
+                ],
+        "q_type":str
         },
         {
         "question_id":4,
@@ -199,7 +217,8 @@ SINGLE_FILE_BASIC_JSON_STRUCTURE_MULTI_CHOICE = """
                 "is_correct":bool
                 }
 
-                ]
+                ],
+        "q_type":str
         },
         {
         "question_id":5,
@@ -224,7 +243,8 @@ SINGLE_FILE_BASIC_JSON_STRUCTURE_MULTI_CHOICE = """
                 "is_correct":bool
                 }
 
-                ]
+                ],
+        "q_type":str
         },
         {
         "question_id":6,
@@ -249,7 +269,8 @@ SINGLE_FILE_BASIC_JSON_STRUCTURE_MULTI_CHOICE = """
                 "is_correct":bool
                 }
 
-                ]
+                ],
+        "q_type":str
         },
         {
         "question_id":7,
@@ -274,7 +295,8 @@ SINGLE_FILE_BASIC_JSON_STRUCTURE_MULTI_CHOICE = """
                 "is_correct":bool
                 }
 
-                ]
+                ],
+        "q_type":str
         },
         {
         "question_id":8,
@@ -299,7 +321,8 @@ SINGLE_FILE_BASIC_JSON_STRUCTURE_MULTI_CHOICE = """
                 "is_correct":bool
                 }
 
-                ]
+                ],
+        "q_type":str
         },
         {
         "question_id":9,
@@ -324,7 +347,8 @@ SINGLE_FILE_BASIC_JSON_STRUCTURE_MULTI_CHOICE = """
                 "is_correct":bool
                 }
 
-                ]
+                ],
+        "q_type":str
         },
         {
         "question_id":10,
@@ -349,7 +373,8 @@ SINGLE_FILE_BASIC_JSON_STRUCTURE_MULTI_CHOICE = """
                 "is_correct":bool
                 }
 
-                ]
+                ],
+        "q_type":str
         }
 
     ]
@@ -391,7 +416,8 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
                 "is_correct":false
                 }
 
-                ]
+                ],
+        "q_type":"multi_choice"
         },
 
         {
@@ -422,7 +448,8 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
                 "is_correct":false
                 }
 
-                ]
+                ],
+        "q_type":"multi_choice"
         },
 
         {
@@ -453,7 +480,8 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
                 "is_correct":true
                 }
 
-                ]
+                ],
+        "q_type":"multi_choice"
         },
 
                 {
@@ -484,7 +512,8 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
                 "is_correct":true
                 }
 
-                ]
+                ],
+        "q_type":"multi_choice"
         },
 
                 {
@@ -515,7 +544,8 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
                 "is_correct":true
                 }
 
-                ]
+                ],
+        "q_type":"multi_choice"
         },
 
                 {
@@ -546,7 +576,8 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
                 "is_correct":true
                 }
 
-                ]
+                ],
+        "q_type":"multi_choice"
         },
 
                 {
@@ -577,7 +608,8 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
                 "is_correct":true
                 }
 
-                ]
+                ],
+        "q_type":"multi_choice"
         },
 
                 {
@@ -608,7 +640,8 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
                 "is_correct":true
                 }
 
-                ]
+                ],
+        "q_type":"multi_choice"
         },
 
                 {
@@ -639,7 +672,8 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
                 "is_correct":true
                 }
 
-                ]
+                ],
+        "q_type":"multi_choice"
         },
 
                 {
@@ -670,7 +704,8 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
                 "is_correct":true
                 }
 
-                ]
+                ],
+        "q_type":"multi_choice"
         }
 
     ]
@@ -679,10 +714,10 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
 
 SINGLE_FILE_BASIC_SYSTEM_INSTRUCTION = ["""You are a scholar assistant responsible to create quizzes from the given contents.""",
                                         """For each question, you will need to add the correct answer.""",
-                                        """For each question, there should only be one correct answer.""",
+                                        """For each question, ALWAYS give ONE CORRECT ANSWER.""",
                                         #"""For each answer to a OPEN ENDED question, you will need to add a justification.""",
-                                        """You must return a valid JSON Object with the output structure requested on the prompt.""",
-                                        """Use the Output Example as template to create valid JSON Objects."""]
+                                        """You must return a valid JSON Object with the <OUTPUT STRUCTURE> requested on the prompt.""",
+                                        """Use the <OUTPUT EXAMPLE> as template to create valid JSON Objects."""]
 
 
 
