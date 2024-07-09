@@ -1,4 +1,5 @@
 from controllers.common.config import *
+from controllers.common.grading_config import *
 from controllers.common.utils import *
 from controllers.common.doc_loading import *
 from controllers.common.quiz_generation import *
@@ -23,18 +24,16 @@ def single_file_basic(request):
     prompt = config['PROMPT']
     system_instrtuction = config['SYSTEM_INSTRUCTION']
 
-    match q_type.lower():
-        case 'open_q': 
+    if q_type.lower() == 'open_q':
             q_type = 'OPEN ENDED'
             json_structure = config['JSON_STRUCTURE_OPEN_Q']
             json_example = config['JSON_EXAMPLE_OPEN_Q']
-        case 'multi_choice':
+    elif q_type.lower() ==  'multi_choice':
             q_type = 'MULTIPLE CHOICE'
             json_structure = config['JSON_STRUCTURE_MULTI_CHOICE']
             json_example = config['JSON_EXAMPLE_MULTI_CHOICE']
-        case 'any':
+    else:
             q_type = 'OPEN ENDED AND MULTIPLE CHOICE'
-
     
     if uploaded_file and uploaded_file.filename != '':     
         file_ext = get_file_ext(uploaded_file.filename) # --------------------- REMOVE COMMENT FOR API TEST
@@ -46,6 +45,8 @@ def single_file_basic(request):
             doc = load_doc(file_ext, temp_file.name)
     
     content = ''
+    
+    
     
     if file_ext == 'pptx':
         for d in doc:
@@ -60,7 +61,7 @@ def single_file_basic(request):
                     break
             else:
                 content+=d.page_content
-            
+    
     prompt = prompt.format(n_questions=n_questions,
                            q_type=q_type,
                            difficulty=difficulty,
@@ -70,30 +71,32 @@ def single_file_basic(request):
     
     valid_json = False
     retry_count = 0
+    
     while not valid_json and retry_count <= CONFIG['MAX_RETRY_COUNT']:
     
         llm_response, chat = get_quiz(prompt, system_instrtuction, GLOBAL_APP_CONFIG)
         quiz_json = extract_json(response=llm_response)
 
+
         if isinstance(quiz_json, dict):
             _correct_question_count = False
             while not _correct_question_count:
                 if not correct_question_count(n_questions=int(n_questions), quiz_json=quiz_json):
-                    match int(n_questions) > len(quiz_json['quiz']):
-                        case True: 
-                            _llm_response = ask_for_missing_questions(chat=chat)
-                            _quiz_json = extract_json(response=_llm_response)
-                            if isinstance(_quiz_json, dict):
-                                quiz_json['quiz'].extend(_quiz_json['quiz'])
-                                llm_response += f'ASK_FOR_MISSING_QUESTIONS: {_llm_response}'
-                        case False:
-                            quiz_json['quiz'] = quiz_json['quiz'][:int(n_questions) + 1]
+                    if int(n_questions) > len(quiz_json['quiz']):
+                        _llm_response = ask_for_missing_questions(chat=chat)
+                        _quiz_json = extract_json(response=_llm_response)
+                        if isinstance(_quiz_json, dict):
+                            quiz_json['quiz'].extend(_quiz_json['quiz'])
+                            llm_response += f'ASK_FOR_MISSING_QUESTIONS: {_llm_response}'
+                    else: 
+                        quiz_json['quiz'] = quiz_json['quiz'][:int(n_questions) + 1]
                 else:
                     quiz_json['title']     =   title
                     valid_json             =   True
                     status                 =   'SUCCESS',
                     description            =   'QUIZ SUCCESSFULLY CREATED.'
                     _correct_question_count =   True
+                    break
         else: 
             retry_count += 1
             if retry_count > CONFIG['MAX_RETRY_COUNT']:
@@ -105,4 +108,47 @@ def single_file_basic(request):
             'description':description,
             'llm_response':llm_response, 
             'quiz_json':quiz_json,
+            'retry_count':retry_count}
+    
+def grade_answers(request):
+
+    config = GRADE_CONFIG['ANSWER_CHECK']
+    #----------------------------
+
+    prompt = config['PROMPT']
+    system_instrtuction = config['SYSTEM_INSTRUCTION']
+    
+    json_structure = config['JSON_STRUCTURE']
+    json_example = config['JSON_EXAMPLE']
+    content_structure = config['CONTENT_STRUCTURE']
+    
+    prompt = prompt.format(
+                        content=request.json['answers'],
+                        content_structure=content_structure,
+                        grade_json_structure=json_structure,
+                        grade_json_example=json_example)
+    
+    valid_json = False
+    retry_count = 0
+    
+    while not valid_json and retry_count <= CONFIG['MAX_RETRY_COUNT']:
+    
+        llm_response, chat = get_quiz(prompt, system_instrtuction, GLOBAL_APP_CONFIG)
+        graded_answers = extract_json(response=llm_response)
+        if isinstance(graded_answers, dict):
+            valid_json             =   True
+            status                 =   'SUCCESS',
+            description            =   'ANSWERS GRADED.'
+            break  
+        else: 
+            retry_count += 1
+            if retry_count > CONFIG['MAX_RETRY_COUNT']:
+                status = 'ERROR'
+                description = f"MAX RETRY COUNT ({CONFIG['MAX_RETRY_COUNT']}) EXCEDEED."
+                break
+
+    return {'status':status,
+            'description':description,
+            'llm_response':llm_response, 
+            'graded_answers':graded_answers,
             'retry_count':retry_count}

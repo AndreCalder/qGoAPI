@@ -11,6 +11,7 @@ click==8.1.7
 dataclasses-json==0.6.7
 dnspython==2.6.1
 docstring_parser==0.16
+docx==0.2.4
 Flask==3.0.3
 Flask-Bcrypt==1.0.1
 Flask-Cors==4.0.1
@@ -29,6 +30,7 @@ googleapis-common-protos==1.63.1
 grpc-google-iam-v1==0.13.0
 grpcio==1.64.1
 grpcio-status==1.62.2
+gunicorn==22.0.0
 idna==3.7
 itsdangerous==2.2.0
 Jinja2==3.1.4
@@ -39,6 +41,7 @@ langchain-community==0.2.5
 langchain-core==0.2.7
 langchain-text-splitters==0.2.1
 langsmith==0.1.77
+lxml==5.2.2
 MarkupSafe==2.1.5
 marshmallow==3.21.3
 multidict==6.0.5
@@ -46,8 +49,10 @@ mypy-extensions==1.0.0
 numpy==1.26.4
 orjson==3.10.5
 packaging==24.1
+pillow==10.4.0
 proto-plus==1.23.0
 protobuf==4.25.3
+psycopg2==2.9.6
 pyasn1==0.6.0
 pyasn1_modules==0.4.0
 pydantic==2.7.4
@@ -56,6 +61,7 @@ PyJWT==2.8.0
 pymongo==4.7.3
 pypdf==4.2.0
 python-dateutil==2.9.0.post0
+python-docx==1.1.2
 python-dotenv==1.0.1
 PyYAML==6.0.1
 requests==2.32.3
@@ -70,4 +76,3 @@ urllib3==2.2.1
 vertexai==1.49.0
 Werkzeug==3.0.3
 yarl==1.9.4
-psycopg2==2.9.6

@@ -29,7 +29,7 @@ def validateToken():
                 "access_token": token_data.get('access_token'),
                 "refresh_token": token_data.get('refresh_token'),
                 "username": token_data.get('username'),
-                "role": token_data.get('role')
+                "roles": token_data.get('roles')
             }, 200
     return {
         "message": "Session Terminated"

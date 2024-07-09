@@ -8,21 +8,20 @@ from langchain.docstore.document import Document
 
 
 def load_doc(file_ext:str, uploaded_file) -> Document:
-    match file_ext.lower():
-            case 'txt': 
-                doc = TextLoader(uploaded_file, encoding='utf-8').load()
-            case 'docx' | 'doc': 
-                doc = UnstructuredWordDocumentLoader(uploaded_file, encoding='utf-8').load()
-            case 'pdf':
-                doc = PyPDFLoader(uploaded_file).load()
-            case 'pptx' | 'ppt':
-                doc = UnstructuredPowerPointLoader(uploaded_file, encoding='utf-8').load()
-            case 'csv': 
-                doc = UnstructuredCSVLoader(uploaded_file, encoding='utf-8').load()
-            case 'Excel':
-                doc = UnstructuredExcelLoader(uploaded_file, encoding='utf-8').load()
-            case _: 
-                doc = None
+    if file_ext.lower() == 'txt':
+        doc = TextLoader(uploaded_file, encoding='utf-8').load()
+    elif file_ext.lower() == 'docx' | file_ext.lower() == 'doc': 
+        doc = UnstructuredWordDocumentLoader(uploaded_file, encoding='utf-8').load()
+    elif file_ext.lower() == 'pdf':
+        doc = PyPDFLoader(uploaded_file).load()
+    elif file_ext.lower() == 'pptx' | file_ext.lower() == 'ppt':
+        doc = UnstructuredPowerPointLoader(uploaded_file, encoding='utf-8').load()
+    elif file_ext.lower() == 'csv': 
+        doc = UnstructuredCSVLoader(uploaded_file, encoding='utf-8').load()
+    elif file_ext.lower() == 'Excel':
+        doc = UnstructuredExcelLoader(uploaded_file, encoding='utf-8').load()
+    else: 
+        doc = None
     return doc
 
 

@@ -33,7 +33,6 @@ SINGLE_FILE_BASIC_JSON_STRUCTURE_OPEN_Q = """
 {
 "quiz":
     [
-
         {
         "question_id":1,
         "question":str,

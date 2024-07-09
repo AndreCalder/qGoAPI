@@ -6,7 +6,13 @@ from flask_bcrypt import Bcrypt
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
+@app.route('/_ah/warmup')
+def warmup():
+    # Perform any necessary initialization here
+    return '', 200
+
 #Calling the router blueprint
 app.register_blueprint(router)
 
-app.run(port=3000, debug=True)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080, debug=True)

@@ -28,7 +28,7 @@ class AuthController:
         data = {
             "user_id": user.get("_id").get('$oid'),
             "username": user.get("username"),
-            "role": user.get("role")
+            "roles": user.get("roles")
         }
         
         access_token = self.token.create_access_token(data)

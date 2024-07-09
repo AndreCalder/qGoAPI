@@ -1,6 +1,6 @@
 import pprint
 from flask import Blueprint, request, g
-from controllers.quizzesController import getQuizById, getQuizzes, createQuiz, saveQuiz
+from controllers.quizzesController import getQuizById, getQuizResponseById, getQuizResponses, getQuizzes, createQuiz, gradeOpenQ, saveQuiz, saveQuizResponse
 from controllers.token import TokenController
 
 tokenController = TokenController()
@@ -31,6 +31,22 @@ def getQuiz(id):
 @quizzes_Router.route('/', methods=['POST'])
 def create():
     return createQuiz(request)
+
+@quizzes_Router.route('/gradeAnswers', methods=['POST'])
+def grade():
+    return gradeOpenQ(request)
+
+@quizzes_Router.route('/saveResponse', methods=['POST'])
+def saveResponse():
+    return saveQuizResponse(request)
+
+@quizzes_Router.route('/getResponses', methods=['GET'])
+def getResponses():
+    return getQuizResponses(request)
+
+@quizzes_Router.route('/getResponses/<id>', methods=['GET'])
+def getResponsesById(id):
+    return getQuizResponseById(request, id)
 
 @quizzes_Router.route('/save', methods=['POST'])
 def saveNewQuiz():
