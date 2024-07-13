@@ -21,12 +21,14 @@ HERE IS AN EXAMPLE OF HOW THE JSON OBJECT SHOULD LOOK LIKE:
 {json_example}
 </OUTPUT EXAMPLE>
 
+IMPORTANT: ALL QUESTIONS SHOULD ADHERE TO THE CONTENT PROVIDED IN <CONTENT>
 IMPORTANT: ALWAYS KEEP THE ANSWERS ("answer") SHORT AND CONCISE.
 IMPORTANT: ALWAYS CREATE TOTALLY DIFFERENT QUESTIONS ("question").
 IMPORTANT: ALWAYS ONLY RETURN ONE CORRECT ANSWER ("is_correct":true) PER QUESTION, THE OTHER ONES SHOULD BE INCORRECT ("is_correct":false).
 IMPORTANT: ALL POSSIBLE ANSWERS PER QUESTION SHOULD BE TOTALLY DIFFERENT, SYNTHESIZE THEM.
 IMPORTANT: ALWAYS USE ONLY THE KEYS GIVEN IN THE <OUTPUT STRUCTURE>.
 IMPORTANT: ALWAYS USE "q_type":"multi_choice" IF THE QUESTION TYPE IS "MULTIPLE CHOICE" AND "q_type":"open_q" IF THE QUESTION TYPE IS "OPEN ENDEND".
+IMPORTANT: TRANSLATE ALL QUESTIONS, ANSWERS AND JUSTIFICATIONS TO {language}
 """
 
 SINGLE_FILE_BASIC_JSON_STRUCTURE_OPEN_Q = """
@@ -713,7 +715,7 @@ SINGLE_FILE_BASIC_JSON_EXAMPLE_MULTI_CHOICE = """
 
 SINGLE_FILE_BASIC_SYSTEM_INSTRUCTION = ["""You are a scholar assistant responsible to create quizzes from the given contents.""",
                                         """For each question, you will need to add the correct answer.""",
-                                        """For each question, ALWAYS give ONE CORRECT ANSWER.""",
+                                        """For each question, ALWAYS give ONLY ONE CORRECT ANSWER.""",
                                         #"""For each answer to a OPEN ENDED question, you will need to add a justification.""",
                                         """You must return a valid JSON Object with the <OUTPUT STRUCTURE> requested on the prompt.""",
                                         """Use the <OUTPUT EXAMPLE> as template to create valid JSON Objects."""]
@@ -728,7 +730,7 @@ GLOBAL_APP_CONFIG = {"PROJECT_ID":"qgo-playground",
                             "TEMPERATURE":0.5,
                             "MAX_TOKENS":21200}}
 
-CONFIG = {"SINGLE_FILE_BASIC":{
+QUIZGONFIG = {"SINGLE_FILE_BASIC":{
                                 "PROMPT":SINGLE_FILE_BASIC_PROMPT,
                                 "SYSTEM_INSTRUCTION":SINGLE_FILE_BASIC_SYSTEM_INSTRUCTION,
                                 "JSON_STRUCTURE_OPEN_Q":SINGLE_FILE_BASIC_JSON_STRUCTURE_OPEN_Q,

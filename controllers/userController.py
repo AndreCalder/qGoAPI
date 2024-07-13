@@ -7,6 +7,10 @@ users = db["users"]
 
 class UserController:
     
+    def get_user_byId(self, user_id):
+        user = users.find_one({"_id": ObjectId(user_id)})
+        return json.loads(json_util.dumps(user))
+    
     def get_user(self, username):
         user = users.find_one({"username": username})
         return json.loads(json_util.dumps(user))
@@ -19,7 +23,7 @@ class UserController:
         
         salt = bcrypt.gensalt(10)
         hashedpass = bcrypt.hashpw(password.encode('utf-8'), salt)
-        createduser = users.insert_one({"username": username, "password": hashedpass.decode('utf-8')})
+        createduser = users.insert_one({"username": username, "password": hashedpass.decode('utf-8'), "roles": {"teacher": False, "admin": False}})
         return {"userId": str(createduser.inserted_id)}, 200
     
         

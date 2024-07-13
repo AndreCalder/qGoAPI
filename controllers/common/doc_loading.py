@@ -10,11 +10,11 @@ from langchain.docstore.document import Document
 def load_doc(file_ext:str, uploaded_file) -> Document:
     if file_ext.lower() == 'txt':
         doc = TextLoader(uploaded_file, encoding='utf-8').load()
-    elif file_ext.lower() == 'docx' | file_ext.lower() == 'doc': 
+    elif file_ext.lower() == 'docx' or file_ext.lower() == 'doc': 
         doc = UnstructuredWordDocumentLoader(uploaded_file, encoding='utf-8').load()
     elif file_ext.lower() == 'pdf':
         doc = PyPDFLoader(uploaded_file).load()
-    elif file_ext.lower() == 'pptx' | file_ext.lower() == 'ppt':
+    elif file_ext.lower() == 'pptx' or file_ext.lower() == 'ppt':
         doc = UnstructuredPowerPointLoader(uploaded_file, encoding='utf-8').load()
     elif file_ext.lower() == 'csv': 
         doc = UnstructuredCSVLoader(uploaded_file, encoding='utf-8').load()

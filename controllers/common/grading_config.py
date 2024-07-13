@@ -111,15 +111,6 @@ SYSTEM_INSTRUCTION = ["""You are a scholar assistant responsible for checking qu
                                         """Use the <OUTPUT EXAMPLE> as template to create valid JSON Objects."""]
 
 
-
-# Configurations
-
-GLOBAL_APP_CONFIG = {"PROJECT_ID":"qgo-playground",
-                     "LOCATION":"us-central1",
-                     "LLM":{"MODEL":"gemini-1.0-pro",
-                            "TEMPERATURE":0.5,
-                            "MAX_TOKENS":21200}}
-
 GRADE_CONFIG = {"ANSWER_CHECK":{
                                 "PROMPT":SINGLE_FILE_BASIC_PROMPT,
                                 "SYSTEM_INSTRUCTION":SYSTEM_INSTRUCTION,
