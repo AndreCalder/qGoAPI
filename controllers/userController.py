@@ -15,6 +15,15 @@ class UserController:
         user = users.find_one({"username": username})
         return json.loads(json_util.dumps(user))
     
+    def create_student(self, username, enrollment):
+        user = self.get_user(username)
+        
+        if user:
+            return {"message": "User already exists"}, 400
+        
+        createduser = users.insert_one({"username": username, "enrollment": enrollment, "roles": {"teacher": False, "admin": False}})
+        return {"userId": str(createduser.inserted_id)}, 200
+    
     def create_user(self, username, password):
         user = self.get_user(username)
         

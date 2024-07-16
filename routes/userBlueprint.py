@@ -12,6 +12,14 @@ def createUser():
     password = req.get('password') 
     
     return userController.create_user(username, password)
+
+@user_Router.route('/createStudent', methods=['POST'])
+def createStudent():
+    req = request.json
+    username = req.get('username')
+    enrollment = req.get('enrollment') 
+    
+    return userController.create_student(username, enrollment)
     
 @user_Router.route('/getByName', methods=['GET'])
 def getUser():
