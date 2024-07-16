@@ -1,6 +1,6 @@
 runtime: python39  # or python38 or python310, depending on your needs
 
-entrypoint: gunicorn -b :$PORT main:app  # Assuming your Flask app instance is named 'app' in 'main.py'
+entrypoint: gunicorn -b :$PORT main:app -t 1800 --keep-alive 1800  # Assuming your Flask app instance is named 'app' in 'main.py'
 
 instance_class: F2  # This specifies the machine type. Optional and can be adjusted based on your needs.
 

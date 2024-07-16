@@ -2,11 +2,9 @@ from flask import Flask
 from routes.router import router
 from flask_cors import CORS, cross_origin
 from flask_bcrypt import Bcrypt
-from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
-socketio = SocketIO(app)
 
 @app.route('/_ah/warmup')
 def warmup():

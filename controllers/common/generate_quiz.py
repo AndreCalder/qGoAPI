@@ -4,7 +4,6 @@ from controllers.common.grading_config import *
 from controllers.common.utils import *
 from controllers.common.doc_loading import *
 from controllers.common.quiz_generation import *
-from flask_socketio import SocketIO, emit
 from tempfile import NamedTemporaryFile
 
 def chunk_text(text, chunk_size):
